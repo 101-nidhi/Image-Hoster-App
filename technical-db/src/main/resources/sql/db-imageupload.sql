@@ -1,0 +1,53 @@
+--DROP TABLE IF EXISTS imagehoster.IMAGES CASCADE;
+--
+--CREATE TABLE IF NOT EXISTS imagehoster.IMAGES(
+--	ID SERIAL PRIMARY KEY,
+--    UUID VARCHAR(36) NOT NULL,
+--    IMAGE VARCHAR(10000),
+--    NAME VARCHAR(200),
+--    DESCRIPTION VARCHAR (200),
+--    NO_OF_LIKES INTEGER ,
+--    USER_ID INTEGER NOT NULL,
+--    CREATED_AT TIMESTAMP,
+--    STATUS VARCHAR(26)
+--);
+--
+--ALTER TABLE imagehoster.IMAGES ADD CONSTRAINT FK_IMAGES FOREIGN KEY(USER_ID) REFERENCES imagehoster.USERS(ID);
+
+
+--tried
+DROP TABLE IF EXISTS imagehoster.IMAGES CASCADE;
+
+CREATE TABLE IF NOT EXISTS imagehoster.IMAGES(
+   ID SERIAL PRIMARY KEY,
+    UUID VARCHAR(36) NOT NULL,
+    IMAGE VARCHAR(10000),
+    NAME VARCHAR(200),
+    DESCRIPTION VARCHAR (200),
+    NO_OF_LIKES INTEGER ,
+   USER_ID INTEGER ,
+    CREATED_AT TIMESTAMP,
+    STATUS VARCHAR(26),
+     MODIFIED_AT TIMESTAMP NULL
+
+);
+
+COMMENT ON TABLE imagehoster.IMAGES IS 'Table to define roles';
+COMMENT ON COLUMN imagehoster.IMAGES.ID IS 'Auto generated PK identifier';
+COMMENT ON COLUMN imagehoster.IMAGES.UUID IS 'Unique identifier used as reference by external systems';
+COMMENT ON COLUMN imagehoster.IMAGES.IMAGE IS 'Versioning for optimistic locking';
+COMMENT ON COLUMN imagehoster.IMAGES.NAME IS 'Unique name of the role';
+COMMENT ON COLUMN imagehoster.IMAGES.DESCRIPTION IS 'Description of the role';
+COMMENT ON COLUMN imagehoster.IMAGES. USER_ID IS 'Active status of the role - INACTIVE(0), ACTIVE (1)';
+--COMMENT ON COLUMN imagehoster.IMAGES.CREATED_BY IS 'User who inserted this record';
+COMMENT ON COLUMN imagehoster.IMAGES.CREATED_AT IS 'Point in time when this record was inserted';
+COMMENT ON COLUMN imagehoster.IMAGES.STATUS IS 'User who modified this record';
+COMMENT ON COLUMN imagehoster.IMAGES.MODIFIED_AT IS 'Point in time when this record was modified';
+
+
+--ALTER TABLE imagehoster1.IMAGES ADD CONSTRAINT UK_IMAGES_UUID UNIQUE(UUID);
+--ALTER TABLE imagehoster1.IMAGES ADD CONSTRAINT UK_IMAGES UNIQUE(NAME);
+ALTER TABLE imagehoster.IMAGES ADD CONSTRAINT FK_IMAGES FOREIGN KEY(USER_ID) REFERENCES imagehoster.USERS(ID);
+
+
+COMMIT;
